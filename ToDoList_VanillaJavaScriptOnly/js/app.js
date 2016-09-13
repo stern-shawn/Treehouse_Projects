@@ -5,6 +5,10 @@
 // Input field doesn't clear after new item is appended
 // Enable adding more handlers to the add item button
 
+// More Feedback from client:
+// When editing, the edit button should display "Save" instead
+// Prevent creation of elements with no task description
+
 var taskInput = document.getElementById("new-task");  // id: new-task
 var addButton = document.getElementsByTagName("button")[0];  // first button on page
 var incompleteTasksHolder = document.getElementById("incomplete-tasks");  // id: incomplete-tasks
@@ -48,15 +52,18 @@ var createNewTaskElement = function(taskString) {
 
 // Add a new task
 var addTask = function () {
-  console.log("Add task...");
-  // Create a new listitem with the text from the new task containing:
-  var listItem = createNewTaskElement(taskInput.value);
+  // Only create a new task if input is defined
+  if (taskInput.value !== "") {
+    console.log("Adding task...");
+    // Create a new listitem with the text from the new task containing:
+    var listItem = createNewTaskElement(taskInput.value);
 
-  // Append listItem to incompleteTasksHolder
-  incompleteTasksHolder.appendChild(listItem);
-  bindTaskEvents(listItem, taskCompleted);
+    // Append listItem to incompleteTasksHolder
+    incompleteTasksHolder.appendChild(listItem);
+    bindTaskEvents(listItem, taskCompleted);
 
-  taskInput.value = "";
+    taskInput.value = "";
+  }
 }
 
 // Edit existing task
@@ -71,16 +78,18 @@ var editTask = function () {
 
   // If in editMode
   if (containsClass) {
-    // Switch from edit mode
     // Label text becomes value of input
     label.innerText = editInput.value;
+    // No longer editing, visually indicate user can edit again
+    this.innerText = "Edit";
   } else {
-    // Add editMode class to parent
     // input value becomes value of label
     editInput.value = label.innerText;
+    // Entering edit mode, let user know that clicking again will "save"
+    this.innerText = "Save";
   }
-  // Toggle .editMode of parent
 
+  // Toggle .editMode of parent
   listItem.classList.toggle("editMode");
 }
 
