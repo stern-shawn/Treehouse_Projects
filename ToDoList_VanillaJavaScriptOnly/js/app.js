@@ -1,6 +1,10 @@
 // Problem: User interaction doesn't exist/isn't working as intended
 // Solution: Add interactivity to let user make/modify todo list app
 
+// Feedback from client:
+// Input field doesn't clear after new item is appended
+// Enable adding more handlers to the add item button
+
 var taskInput = document.getElementById("new-task");  // id: new-task
 var addButton = document.getElementsByTagName("button")[0];  // first button on page
 var incompleteTasksHolder = document.getElementById("incomplete-tasks");  // id: incomplete-tasks
@@ -13,32 +17,32 @@ var createNewTaskElement = function(taskString) {
   // input checkbox
   var checkBox = document.createElement("input"); // type checkbox
   // label
-  var label = document.createElement("label"); 
+  var label = document.createElement("label");
   // input text
   var editInput = document.createElement("input"); // type text
   // button (edit)
   var editButton = document.createElement("button");
   // button (delete)
   var deleteButton = document.createElement("button");
-  
+
   // Each element needs to be customized
   checkBox.type = "checkbox";
   editInput.type = "text";
-  
+
   editButton.innerText = "Edit";
   editButton.className = "edit";
   deleteButton.innerText = "Delete";
   deleteButton.className = "delete";
-  
+
   label.innerText = taskString;
-  
+
   // ..and then appended to the list
   listItem.appendChild(checkBox);
   listItem.appendChild(label);
   listItem.appendChild(editInput);
   listItem.appendChild(editButton);
   listItem.appendChild(deleteButton);
-  
+
   return listItem;
 }
 
@@ -47,22 +51,24 @@ var addTask = function () {
   console.log("Add task...");
   // Create a new listitem with the text from the new task containing:
   var listItem = createNewTaskElement(taskInput.value);
-  
+
   // Append listItem to incompleteTasksHolder
   incompleteTasksHolder.appendChild(listItem);
   bindTaskEvents(listItem, taskCompleted);
+
+  taskInput.value = "";
 }
 
 // Edit existing task
 var editTask = function () {
   console.log("Edit task...");
   var listItem = this.parentNode;
-  
+
   var editInput = listItem.querySelector("input[type=text]");
   var label = listItem.querySelector("label");
-  
+
   var containsClass = listItem.classList.contains("editMode");
-  
+
   // If in editMode
   if (containsClass) {
     // Switch from edit mode
@@ -74,7 +80,7 @@ var editTask = function () {
     editInput.value = label.innerText;
   }
   // Toggle .editMode of parent
-  
+
   listItem.classList.toggle("editMode");
 }
 
@@ -84,7 +90,7 @@ var taskCompleted = function () {
   // append task to the complete list
   var listItem = this.parentNode
   completeTasksHolder.appendChild(listItem);
-  
+
   // Bind the opposing handler to the checkbox
   bindTaskEvents(listItem, taskIncomplete);
 }
@@ -95,7 +101,7 @@ var taskIncomplete = function () {
   // Append to todo list
   var listItem = this.parentNode
   incompleteTasksHolder.appendChild(listItem);
-  
+
   // Bind the opposing handler to the checkbox
   bindTaskEvents(listItem, taskCompleted);
 }
@@ -104,7 +110,7 @@ var deleteTask = function () {
   console.log("Delete task...");
   var listItem = this.parentNode;
   var ul = listItem.parentNode;
-  
+
   // remove the parent item (li element) from the ul of tasks
   ul.removeChild(listItem);
 }
@@ -116,7 +122,7 @@ var bindTaskEvents = function(taskListItem, checkBoxEventHandler) {
   var checkBox = taskListItem.querySelector("input[type=checkbox]");
   var editButton = taskListItem.querySelector("button.edit");
   var deleteButton = taskListItem.querySelector("button.delete");
-  
+
   // bind editTask to edit button
   editButton.onclick = editTask;
   // bind deleteTask to the delete button
@@ -125,10 +131,16 @@ var bindTaskEvents = function(taskListItem, checkBoxEventHandler) {
   checkBox.onchange = checkBoxEventHandler;
 }
 
+// Hypothetical AJAX request by the client
+var ajaxRequest = function () {
+  console.log("AJAX Request");
+}
+
 // Event handler attachments
 
-// Set the click handler to the addTask function
-addButton.onclick = addTask;
+// Set the click handler to the addTask function as well as the ajax request dummy to see that we can have multiple event handlers
+addButton.addEventListener("click", addTask);
+addButton.addEventListener("click", ajaxRequest);
 
 // Cycle over the incomplete task holder ul list items
 for (var i = 0; i < incompleteTasksHolder.children.length; i++) {
