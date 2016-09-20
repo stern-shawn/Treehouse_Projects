@@ -1,15 +1,21 @@
 var Profile = require("./profile.js");
+var renderer = require("./renderer.js");
+
+// Set output type to html so output is rendered instead of output as plain text
+var commonHeaders = {'Content-Type': 'text/html'};
 
 // Handle the http route GET / and POST / ie HOME
 function home(request, response) {
 // If url === / && GET
   // show the serach field
   if (request.url === "/") {
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.write("Header\n");
-    response.write("Search\n");
-    response.end("Footer\n");
+    response.writeHead(200, commonHeaders);
+    renderer.view("header", {}, response);
+    renderer.view("search", {}, response);
+    renderer.view("footer", {}, response);
+    response.end();
   }
+
 
 // If url === / && POST
   // redirect to site/username
@@ -21,8 +27,9 @@ function user(request, response) {
   // Remove the slash from url and check if we have any username input
   var username = request.url.replace("/", "");
   if (username.length > 0) {
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.write("Header\n");
+
+    response.writeHead(200, commonHeaders);
+    renderer.view("header", {}, response);
 
      // get *'s json from treehouse
     var studentProfile = new Profile(username);
@@ -39,14 +46,16 @@ function user(request, response) {
       }
 
       // Simple response
-      response.write(values.username + " has " + values.badges + " badges\n");
-      response.end("Footer\n");
+      renderer.view("profile", values, response);
+      renderer.view("footer", {}, response);
+      response.end();
     });
-
     // on error, show error
     studentProfile.on("error", function(error) {
-      response.write(error.message + "\n");
-      response.end("Footer\n");
+      renderer.view("error", {errorMessage: error.message}, response);
+      renderer.view("search", {}, response);
+      renderer.view("footer", {}, response);
+      response.end();
     });
   }
 }
