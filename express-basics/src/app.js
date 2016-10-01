@@ -7,7 +7,7 @@ var app = express()
 
 // Set view engine to Jade and direct to src/templates w/ relative path
 app.set('view engine', 'jade')
-app.set('views', __dirname + '/templates')
+app.set('views', __dirname + '/views')
 
 // Set up route for initial visit to the site
 app.get('/', function (req, res) {
@@ -23,8 +23,9 @@ app.get('/blog/:title?', function (req, res) {
     res.status(503)
     res.send('Page under construction!')
   } else {
-    var post = posts[title]
-    res.send(post)
+    // Use the || empty object convention to assign empty value if invalid blog requested
+    var post = posts[title] || {}
+    res.render('post', { post: post })
   }
 })
 
