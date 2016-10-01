@@ -5,6 +5,10 @@ var express = require('express'),
       posts = require('./mock/posts.json')
 var app = express()
 
+// Setup our static content middleware
+// Add the /static prefix
+app.use('/static', express.static(__dirname + '/public'))
+
 // Set view engine to Jade and direct to src/templates w/ relative path
 app.set('view engine', 'jade')
 app.set('views', __dirname + '/views')
