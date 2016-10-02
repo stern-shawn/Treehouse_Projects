@@ -2,6 +2,7 @@
 
 // Import express module
 var express = require('express')
+var path = require('path')
 var posts = require('./mock/posts.json')
 
 var postsList = Object.keys(posts).map(function (key) {
@@ -13,17 +14,17 @@ var app = express()
 
 // Setup our static content middleware
 // Add the /static prefix
-app.use('/static', express.static(__dirname + '/public'))
+app.use('/static', express.static(path.join(__dirname, 'public')))
 
 // Set view engine to Jade and direct to src/templates w/ relative path
 app.set('view engine', 'jade')
-app.set('views', __dirname + '/views')
+app.set('views', path.join(__dirname, 'views'))
 
 // Set up route for initial visit to the site
 app.get('/', function (req, res) {
-  var path = req.path
+  var indexPath = req.path
   // this is identical to res.render('index', {path: path})
-  res.locals.path = path
+  res.locals.path = indexPath
   // We can pass index instead of index.jade since engine is set to Jade
   res.render('index')
 })
