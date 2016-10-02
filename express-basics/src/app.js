@@ -1,8 +1,14 @@
 'use strict'
 
 // Import express module
-var express = require('express'),
-      posts = require('./mock/posts.json')
+var express = require('express')
+var posts = require('./mock/posts.json')
+
+var postsList = Object.keys(posts).map(function (key) {
+  // Turn posts object into array of post objects since render only works on arrays
+  return posts[key]
+})
+
 var app = express()
 
 // Setup our static content middleware
@@ -15,6 +21,9 @@ app.set('views', __dirname + '/views')
 
 // Set up route for initial visit to the site
 app.get('/', function (req, res) {
+  var path = req.path
+  // this is identical to res.render('index', {path: path})
+  res.locals.path = path
   // We can pass index instead of index.jade since engine is set to Jade
   res.render('index')
 })
@@ -24,12 +33,14 @@ app.get('/blog/:title?', function (req, res) {
   var title = req.params.title
   if (title === undefined) {
     // 503 to indicate to search engines under construction
-    res.status(503)
-    res.send('Page under construction!')
+    // res.status(503)
+    console.log(postsList)
+
+    res.render('blog', {posts: postsList})
   } else {
     // Use the || empty object convention to assign empty value if invalid blog requested
     var post = posts[title] || {}
-    res.render('post', { post: post })
+    res.render('post', {post: post})
   }
 })
 
