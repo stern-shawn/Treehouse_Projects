@@ -44,6 +44,16 @@ app.get('/blog/:title?', function (req, res) {
   }
 })
 
+// Add ability for user to request the posts directly, either as the list of posts, or the raw posts object
+app.get('/posts', function (req, res) {
+  // Use req.query to access query string and check for the 'raw' flag
+  if (req.query.raw) {
+    res.json(posts)
+  } else {
+    res.json(postsList)
+  }
+})
+
 // Set up the server (port 3000)
 app.listen(3000, function () {
   console.log('Front-end server running on port 3000')
