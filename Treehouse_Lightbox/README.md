@@ -17,3 +17,6 @@ TODO
 
 ## 5. Roadmap
 Complete
+
+## 6. Real Life
+Turns out I just got a chance to re-use this code for a client, with some minor changes to fit the locations of their images on the page! Check it out in this ASP file [here](https://github.com/stern-shawn/Treehouse_Projects/blob/master/Treehouse_Lightbox/inlineVariant.asp)
