@@ -6,6 +6,7 @@ var uglify = require('gulp-uglify')
 var rename = require('gulp-rename')
 var sass = require('gulp-sass')
 var maps = require('gulp-sourcemaps')
+var del = require('del')
 
 gulp.task('concatScripts', function () {
   // Use return to let other methods know when it's finished
@@ -41,8 +42,20 @@ gulp.task('watchSass', function () {
   gulp.watch('scss/**/*.scss', ['compileSass'])
 })
 
+gulp.task('clean', function () {
+  del(['dist', 'css/application.css*', 'js/app*.js*'])
+})
+
 // Run all tasks in parallel BAD SINCE THERE ARE DEPENDENCIES
 // gulp.task('build', ['concatScripts', 'minifyScripts', 'compileSass'])
-gulp.task('build', ['minifyScripts', 'compileSass'])
 
-gulp.task('default', ['build'])
+// Build the app and send oroduction version to /dist
+gulp.task('build', ['minifyScripts', 'compileSass'], function () {
+  return gulp.src(['css/application.css', 'js/app.min.js', 'index.html', 'img/**', 'fonts/**'], {base: './'})
+             .pipe(gulp.dest('dist'))
+})
+
+// Clean up the directory before building a new /dist
+gulp.task('default', ['clean'], function () {
+  gulp.start('build')
+})
