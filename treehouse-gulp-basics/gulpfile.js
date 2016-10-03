@@ -5,6 +5,7 @@ var concat = require('gulp-concat')
 var uglify = require('gulp-uglify')
 var rename = require('gulp-rename')
 var sass = require('gulp-sass')
+var maps = require('gulp-sourcemaps')
 
 gulp.task('concatScripts', function () {
   gulp.src([
@@ -25,7 +26,9 @@ gulp.task('minifyScripts', function () {
 
 gulp.task('compileSass', function () {
   gulp.src('scss/application.scss')
+      .pipe(maps.init())
       .pipe(sass())
+      .pipe(maps.write('./'))
       .pipe(gulp.dest('css'))
 })
 
