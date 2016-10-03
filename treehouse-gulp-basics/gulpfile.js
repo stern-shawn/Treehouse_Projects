@@ -36,6 +36,11 @@ gulp.task('compileSass', function () {
       .pipe(gulp.dest('css'))
 })
 
+gulp.task('watchSass', function () {
+  // Use glob pattern scss/ (all subdirectories) / (allfiles ending in scss)
+  gulp.watch('scss/**/*.scss', ['compileSass'])
+})
+
 // Run all tasks in parallel BAD SINCE THERE ARE DEPENDENCIES
 // gulp.task('build', ['concatScripts', 'minifyScripts', 'compileSass'])
 gulp.task('build', ['minifyScripts', 'compileSass'])
