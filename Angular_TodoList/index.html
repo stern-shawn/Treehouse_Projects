@@ -22,8 +22,8 @@
       <div class="actions">
         <a href="" ng-click="editing = !editing">Edit</a>
         <!-- Upon clicking this anchor, fire the helloWorld function within this scope -->
-        <a href="" ng-click="helloWorld()">Save</a>
-        <a href="" class="delete">Delete</a>
+        <a href="" ng-click="saveTodo(todo)">Save</a>
+        <a href="" ng-click="deleteTodo(todo, $index)" class="delete">Delete</a>
       </div>
     </div>
     {{todos}}
