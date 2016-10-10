@@ -11,6 +11,11 @@
   <!-- Add controller to the scope of this div using ng-controller directive -->
   <div ng-controller="mainCtrl" class="list">
     <h1>My TODOs</h1>
+
+    <div class="add">
+      <a href="" ng-click="addTodo()">+ Add a New Task</a>
+    </div>
+
     <div ng-repeat="todo in todos" class="item" ng-class="{'editing-item': editing, 'edited': todo.edited}">
       <!-- Here we can use the model 'todo' and give it attributes which can
       store state, such as todo.name (name of the task) and todo.completed to
@@ -26,7 +31,7 @@
         <a href="" ng-click="deleteTodo(todo, $index)" class="delete">Delete</a>
       </div>
     </div>
-    {{todos}}
+    <!-- {{todos}} -->
   </div>
 
   <script src="vendor/angular.js" type="text/javascript"></script>
