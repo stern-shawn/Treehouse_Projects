@@ -8,24 +8,25 @@
 
 <!--  Use ng-app directive to assign app to the body tag -->
 <body ng-app="todoListApp">
-  <h1>My TODOs</h1>
   <!-- Add controller to the scope of this div using ng-controller directive -->
   <div ng-controller="mainCtrl" class="list">
-    <!-- Here we can use the model 'todo' and give it attributes which can
-    store state, such as todo.name (name of the task) and todo.completed to
-    store the state of the checkbox -->
-    <input ng-model="todo.completed" type="checkbox"/>
-    <!-- Hide this label if 'editing' is true -->
-    <label ng-hide="editing" class="editing-table">{{todo.name}}</label>
-    <input ng-model="todo.name" class="editing-label" type="text"/>
+    <h1>My TODOs</h1>
+    <div ng-repeat="todo in todos">
+      <!-- Here we can use the model 'todo' and give it attributes which can
+      store state, such as todo.name (name of the task) and todo.completed to
+      store the state of the checkbox -->
+      <input ng-model="todo.completed" type="checkbox"/>
+      <label ng-show="editing" class="editing-table">{{todo.name}}</label>
+      <input ng-model="todo.name" class="editing-label" type="text"/>
 
-    <div class="actions">
-      <!-- On click, toggle the state of 'editing' -->
-      <a href="" ng-click="editing = !editing">Edit</a>
-      <!-- Upon clicking this anchor, fire the helloWorld function within this scope -->
-      <a href="" ng-click="helloWorld()">Save</a>
-      <a href="" class="delete">Delete</a>
+      <div class="actions">
+        <a href="" ng-click="editing = !editing">Edit</a>
+        <!-- Upon clicking this anchor, fire the helloWorld function within this scope -->
+        <a href="" ng-click="helloWorld()">Save</a>
+        <a href="" class="delete">Delete</a>
+      </div>
     </div>
+    {{todos}}
   </div>
 
   <script src="vendor/angular.js" type="text/javascript"></script>
