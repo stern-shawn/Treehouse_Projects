@@ -40,8 +40,8 @@ a {
         margin-left: 10px; }
         .list .item .actions .delete:hover {
           color: #f28888; }
-    .list .item.editing .actions {
-      margin-top: 17px; }
+    .list .item.editing-item .actions {
+    margin-top: 17px; }
   .list .edited label:after {
     content: " edited";
     text-transform: uppercase;
