@@ -1,7 +1,7 @@
 angular.module("todoListApp", [])
 .controller("mainCtrl", function ($scope) {
-  $scope.helloWorld = function () {
-    console.log("Hello, this is the hellowWorld controller function in mainCtrl!")
+  $scope.learningNgChange = function () {
+    console.log("An input changed!")
   }
 
   $scope.todos = [
