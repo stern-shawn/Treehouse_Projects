@@ -11,9 +11,12 @@
   <h1>My TODOs</h1>
   <!-- Add controller to the scope of this div using ng-controller directive -->
   <div ng-controller="mainCtrl" class="list">
-    <input type="checkbox"/>
-    <label class="editing-table">A sample todo</label>
-    <input class="editing-label" type="text"/>
+    <!-- Here we can use the model 'todo' and give it attributes which can
+    store state, such as todo.name (name of the task) and todo.completed to
+    store the state of the checkbox -->
+    <input ng-model="todo.completed" type="checkbox"/>
+    <label class="editing-table">{{todo.name}}</label>
+    <input ng-model="todo.name" class="editing-label" type="text"/>
 
     <div class="actions">
       <a href="">Edit</a>
