@@ -8,14 +8,14 @@
     store state, such as todo.name (name of the task) and todo.completed to
     store the state of the checkbox -->
     <input ng-model="todo.completed" type="checkbox"/>
-    <span ng-click="todo.completed = !todo.completed"></span>
-    <label ng-hide="editing" class="editing-table">{{todo.name}}</label>
+    <span ng-click="todo.completed = !todo.completed; todo.edited = true"></span>
+    <label ng-click="editing = true" ng-hide="editing">{{todo.name}}</label>
     <input ng-change="todo.edited = true" ng-blur="editing=false" ng-show="editing" ng-model="todo.name" class="editing-label" type="text"/>
 
     <div class="actions">
-      <a href="" ng-click="editing = !editing">Edit</a>
+      <!-- <a href="" ng-click="editing = !editing">Edit</a> -->
       <!-- Upon clicking this anchor, fire the helloWorld function within this scope -->
-      <a href="" ng-click="saveTodo(todo)">Save</a>
+      <a href="" ng-click="saveTodos(todo)">Save</a>
       <a href="" ng-click="deleteTodo(todo, $index)" class="delete">Delete</a>
     </div>
   </div>

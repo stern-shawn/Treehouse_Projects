@@ -16,8 +16,8 @@ angular.module('todoListApp')
     // Logic to actually remove from the server
   }
 
-  this.saveTodo = function (todo) {
-    console.log(todo.name + " has been added")
+  this.saveTodos = function(todos) {
+    console.log(todos.length + " todos have been saved!");
     // Logic to actually add to the server
   }
 })
