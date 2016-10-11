@@ -4,7 +4,8 @@ angular.module('todoListApp')
 .controller("mainCtrl", function ($scope, dataService) {
   $scope.addTodo = function () {
     var todo = {name: "This is a new todo."}
-    $scope.todos.push(todo)
+    // Change push to unshift so new items are added to top of list
+    $scope.todos.unshift(todo);
   }
 
   $scope.helloConsole = dataService.helloConsole
