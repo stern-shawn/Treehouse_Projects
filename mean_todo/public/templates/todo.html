@@ -5,6 +5,10 @@
       <input ng-show="editing" ng-blur="editing = false" class="editing-label" type="text" ng-model="todo.name" ng-change="todo.edited = true"/>
       <div class="actions">
         <a href="" ng-click="saveTodos()">Save</a>
-        <a href="" class="delete" ng-click="deleteTodo(todo, $index)">Delete</a>
+        <!-- Fixing the deleteTodo() function since Treehouse's version is messed up.
+             No longer using the $index value since it doesn't change even if
+             the todo element is moved after initialization. Guess they missed that
+             detail... -->
+        <a href="" class="delete" ng-click="deleteTodo(todo)">Delete</a>
       </div>
     </div>
