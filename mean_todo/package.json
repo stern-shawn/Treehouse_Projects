@@ -12,6 +12,7 @@
     "webpack": "^1.13.2"
   },
   "dependencies": {
-    "angular": "^1.5.8"
+    "angular": "^1.5.8",
+    "mongoose": "4.6.3"
   }
 }

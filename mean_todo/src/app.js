@@ -4,6 +4,9 @@ var express = require('express')
 var app = express()
 var router = require('./api')
 
+// Require the database so it's available globally
+require('./database')
+
 // Serve files in public to the route '/'
 app.use('/', express.static('public'))
 
