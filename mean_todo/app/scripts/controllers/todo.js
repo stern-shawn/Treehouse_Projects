@@ -9,8 +9,11 @@ angular.module('todoListApp')
     // after the todo item is first made...
     // $scope.todos.splice(index, 1)
     // Fixed method, use indexOf to get the current location in the todos list
-    $scope.todos.splice($scope.todos.indexOf(todo), 1)
-    dataService.deleteTodo(todo)
+    dataService.deleteTodo(todo).finally(function () {
+      // Updating to only visibly remove from front-end once removal promise
+      // comes back as successful
+      $scope.todos.splice($scope.todos.indexOf(todo), 1)
+    })
   }
 
   $scope.saveTodos = function () {

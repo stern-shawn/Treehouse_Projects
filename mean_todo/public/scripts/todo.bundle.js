@@ -64,8 +64,11 @@ webpackJsonp([0],[
 	    // after the todo item is first made...
 	    // $scope.todos.splice(index, 1)
 	    // Fixed method, use indexOf to get the current location in the todos list
-	    $scope.todos.splice($scope.todos.indexOf(todo), 1)
-	    dataService.deleteTodo(todo)
+	    dataService.deleteTodo(todo).finally(function () {
+	      // Updating to only visibly remove from front-end once removal promise
+	      // comes back as successful
+	      $scope.todos.splice($scope.todos.indexOf(todo), 1)
+	    })
 	  }
 
 	  $scope.saveTodos = function () {
@@ -122,8 +125,14 @@ webpackJsonp([0],[
 	    $http.get('/api/todos').then(cb)
 	  }
 
+	  // Send a $http.delete request for this todo if it has a MongoDB id
 	  this.deleteTodo = function (todo) {
-	    console.log('I deleted the ' + todo.name + ' todo!')
+	    if (!todo._id) {
+	      return $q.resolve()
+	    }
+	    return $http.delete('/api/todos/' + todo._id).then(function () {
+	      console.log('Todo: ' + todo.name + ' deleted from todos!')
+	    })
 	  }
 
 	  this.saveTodos = function (todos) {
