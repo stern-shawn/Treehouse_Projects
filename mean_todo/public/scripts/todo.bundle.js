@@ -25,7 +25,17 @@ webpackJsonp([0],[
 	var angular = __webpack_require__(1)
 
 	angular.module('todoListApp')
-	.controller('mainCtrl', function ($scope, dataService) {
+	.controller('mainCtrl', function ($scope, $log, $interval, dataService) {
+	  $scope.seconds = 0
+
+	  $scope.counter = function () {
+	    $scope.seconds++
+	    $log.log($scope.seconds + ' seconds have passed!')
+	  }
+
+	  // Syntax: callback to be exectued, delay in ms, # of iterations (optional)
+	  $interval($scope.counter, 1000, 10)
+
 	  dataService.getTodos(function (response) {
 	    // Due to different formatting of the object, todos data is in
 	    // response.data.todos instead of just response.data like before
