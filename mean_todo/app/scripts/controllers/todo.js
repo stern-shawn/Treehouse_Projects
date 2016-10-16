@@ -19,6 +19,15 @@ angular.module('todoListApp')
         return todo
       }
     })
+    // Use .finally to call the reset, since $q returns a promise
     dataService.saveTodos(filteredTodos)
+    .finally($scope.resetTodoState())
+  }
+
+  // If we're saving the edited todos, remove the edited state once saved
+  $scope.resetTodoState = function () {
+    $scope.todos.forEach(function (todo) {
+      todo.edited = false
+    })
   }
 })
