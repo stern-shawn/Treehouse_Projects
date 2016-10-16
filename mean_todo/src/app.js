@@ -6,6 +6,7 @@ var router = require('./api')
 
 // Require the database so it's available globally
 require('./database')
+require('./seed')
 
 // Serve files in public to the route '/'
 app.use('/', express.static('public'))
