@@ -84,6 +84,16 @@ describe('fire', function () {
     }
   })
 
+  // Log completion of the test suite
+  after(function () {
+    console.log('Test suite completed')
+  })
+
+  // Only for example
+  // afterEach(function () {
+  //   console.log('one unit test completed...')
+  // })
+
   it('should record damage on given ship at a given coordinate', function () {
     fire(player, [0, 0])
     expect(player.ships[0].damage[0]).to.deep.equal([0,0])
