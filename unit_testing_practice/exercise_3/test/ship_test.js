@@ -71,6 +71,8 @@ describe('fire', function () {
   var fire = require('../game_logic/ship_methods').fire
   var player
 
+  // Similarly, since fire does modify the player object, we can use beforeEach()
+  // to create a fresh copy of player for each test to make use of
   beforeEach(function () {
     player = {
       ships: [
