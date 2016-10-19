@@ -17,10 +17,13 @@ function checkForShip (player, coordinates) {
   return false
 }
 
+// Damage the given ship
 function damageShip (ship, coordinates) {
   ship.damage.push(coordinates)
 }
 
+// Fire on the given player at the given coordinates. If one of the player's
+// ships exists there, damage the appropriate ship
 function fire (player, coordinates) {
   var ship = checkForShip(player, coordinates)
 
